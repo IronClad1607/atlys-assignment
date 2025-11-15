@@ -8,8 +8,13 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ishaan.atlysassignment.features.movie_list.ui.MovieListScreen
+import com.ishaan.atlysassignment.features.splash_screen.ui.SplashScreen
 import com.ishaan.atlysassignment.navigation.AppNavHost
+import com.ishaan.atlysassignment.navigation.MovieListScreen
+import com.ishaan.atlysassignment.navigation.SplashScreen
 import com.ishaan.atlysassignment.ui.theme.AtlysAssignmentTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,6 +44,20 @@ fun App(
         navHostController = navController,
         modifier = modifier
     ) {
+        composable(
+            route = SplashScreen.route
+        ) {
+            SplashScreen(
+                navigateToMovieDetailScreen = {
+                    navController.navigate(MovieListScreen.route)
+                }
+            )
+        }
 
+        composable(
+            route = MovieListScreen.route
+        ) {
+            MovieListScreen()
+        }
     }
 }

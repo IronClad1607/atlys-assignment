@@ -12,3 +12,9 @@ data object SplashScreen : Routes {
     override val route: String
         get() = "splash_screen"
 }
+
+data object MovieListScreen : Routes {
+    override val route: String
+        get() = "movie_list_screen"
+
+}
