@@ -47,6 +47,8 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    debugImplementation (libs.chucker.main)
+    releaseImplementation(libs.chucker.no.op)
 
     //Hilt
     implementation(libs.hilt.android)

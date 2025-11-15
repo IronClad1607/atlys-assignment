@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -52,11 +53,25 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
+    //Data module
     implementation(project(":data"))
 
+    //Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
+    //Viewmodel and lifecycle
+    implementation(libs.viewmodel.ktx)
+    implementation(libs.viewmodel.livedata.ktx)
+    implementation(libs.activity.ktx)
+
+    //Navigation
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlin.serialization)
+
+    //Image Loading
+    implementation(libs.coil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
