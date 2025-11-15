@@ -12,7 +12,7 @@ import com.ishaan.atlysassignment.data.network.interceptors.APIKeyInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -42,7 +42,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideChuckerInterceptor(@ActivityContext context: Context): ChuckerInterceptor {
+    fun provideChuckerInterceptor(@ApplicationContext context: Context): ChuckerInterceptor {
         val chuckerCollector = ChuckerCollector(
             context = context,
             showNotification = true,

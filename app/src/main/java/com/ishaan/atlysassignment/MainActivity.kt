@@ -49,7 +49,12 @@ fun App(
         ) {
             SplashScreen(
                 navigateToMovieDetailScreen = {
-                    navController.navigate(MovieListScreen.route)
+                    navController.navigate(MovieListScreen.route) {
+                        popUpTo(SplashScreen.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 }
             )
         }
@@ -57,7 +62,11 @@ fun App(
         composable(
             route = MovieListScreen.route
         ) {
-            MovieListScreen()
+            MovieListScreen(
+                navigateBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }
