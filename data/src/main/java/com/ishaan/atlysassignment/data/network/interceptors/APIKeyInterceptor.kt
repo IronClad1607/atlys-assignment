@@ -1,5 +1,6 @@
 package com.ishaan.atlysassignment.data.network.interceptors
 
+import com.ishaan.atlysassignment.data.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -8,7 +9,7 @@ class APIKeyInterceptor: Interceptor {
         val originalRequest = chain.request()
         val originalUrl = originalRequest.url
         val newUrl = originalUrl.newBuilder()
-            .addQueryParameter("api_key", "d5b568462e39f02e011bb612583ead1e")
+            .addQueryParameter("api_key", BuildConfig.API_KEY)
             .addQueryParameter("language", "en-US")
             .build()
         val newRequest = originalRequest.newBuilder()

@@ -62,11 +62,7 @@ fun App(
         composable(
             route = MovieListScreen.route
         ) {
-            MovieListScreen(
-                navigateBack = {
-                    navController.popBackStack()
-                }
-            )
+            MovieListScreen()
         }
     }
 }
