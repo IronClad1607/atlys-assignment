@@ -6,6 +6,12 @@ and modular architecture.
 
 ---
 
+## 🎥Working Demo
+
+See the app's core features in action with this brief demo:
+
+![Working Demo](./images/demo.mp4)
+
 ## 📸 Screenshots
 
 |                                      Movie List Screen                                      |                                      Movie Detail Screen                                      |
@@ -93,3 +99,5 @@ from [The Movie DB (TMDB)](https://www.themoviedb.org/documentation/api).
     * Build and run the app on an emulator or a physical device.
 
 ---
+
+## 🤖Usage of AI to build this project.

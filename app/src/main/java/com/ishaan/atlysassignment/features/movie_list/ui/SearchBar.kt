@@ -1,5 +1,6 @@
 package com.ishaan.atlysassignment.features.movie_list.ui
 
+// Composable SearchBar used for entering movie search queries within the Movie List screen
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -28,9 +29,12 @@ fun SearchBar(
     onCloseClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // FocusRequester ensures the search text field gets focused automatically when opened
     val focusRequester = remember { FocusRequester() }
+    // TopAppBar layout hosting the search icon, search text field, and close button
     TopAppBar(
         navigationIcon = {
+            // Leading search icon inside the search bar
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = null,
@@ -38,15 +42,18 @@ fun SearchBar(
             )
         },
         title = {
+            // TextField where the user types the movie name to search
             TextField(
                 value = searchText,
                 onValueChange = onSearchTextChange,
                 placeholder = {
+                    // Placeholder shown when no text is entered
                     Text(
                         text = "Search Movie...",
                         style = MaterialTheme.typography.bodyMedium
                     )
                 },
+                // Makes the TextField visually blend into the TopAppBar by removing background and indicators
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
@@ -57,6 +64,7 @@ fun SearchBar(
                 ),
                 textStyle = MaterialTheme.typography.bodyMedium,
                 singleLine = true,
+                // Configure keyboard behavior: capitalize sentences and trigger search on IME action
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Sentences,
                     imeAction = ImeAction.Search
@@ -66,8 +74,10 @@ fun SearchBar(
                     .focusRequester(focusRequester)
             )
         },
+        // Close button to clear the search text and collapse the search bar
         actions = {
             IconButton(
+                // When clicked, clears search text and triggers close action
                 onClick = {
                     onCloseClick()
                     onSearchTextChange("")
@@ -81,11 +91,13 @@ fun SearchBar(
         }
     )
 
+    // Automatically request focus when SearchBar appears
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
     }
 }
 
+// Preview of the SearchBar component for UI rendering in Android Studio
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable

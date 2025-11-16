@@ -7,6 +7,7 @@ import retrofit2.CallAdapter
 import retrofit2.Converter
 import java.lang.reflect.Type
 
+// CallAdapter that wraps Retrofit calls into NetworkResponseCall for unified success/error handling
 internal class NetworkResponseAdapter<S : Any>(
     private val gson: Gson,
     private val successType: Type,

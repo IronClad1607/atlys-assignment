@@ -1,5 +1,7 @@
 package com.ishaan.atlysassignment.data.network.call_adapter
 
+// Factory responsible for producing NetworkResponseAdapter instances for Retrofit
+
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.CallAdapter

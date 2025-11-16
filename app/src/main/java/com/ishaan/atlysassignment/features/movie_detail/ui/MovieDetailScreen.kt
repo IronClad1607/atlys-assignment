@@ -1,3 +1,4 @@
+// Screen responsible for displaying full details of a selected movie, including poster, title, and overview
 package com.ishaan.atlysassignment.features.movie_detail.ui
 
 import androidx.compose.foundation.layout.*
@@ -21,6 +22,7 @@ import com.ishaan.atlysassignment.R
 import com.ishaan.atlysassignment.data.network.BaseURL
 import com.ishaan.atlysassignment.features.movie_detail.data.MovieDetailsArgs
 
+// Opting into experimental Material 3 APIs to use TopAppBar components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailScreen(
@@ -28,12 +30,15 @@ fun MovieDetailScreen(
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Scaffold provides the top-level layout structure with a TopAppBar and content area
     Scaffold(
         topBar = {
+            // Top bar with back navigation icon
             TopAppBar(
                 title = {},
                 navigationIcon = {
                     IconButton(onClick = {
+                        // Trigger navigation back to previous screen
                         navigateBack()
                     }) {
                         Icon(
@@ -47,7 +52,9 @@ fun MovieDetailScreen(
         containerColor = MaterialTheme.colorScheme.background,
         modifier = modifier
     ) { innerPadding ->
+        // Main vertical scrollable content container for movie details
         Column(
+            // Using Column to stack poster, title, and overview vertically
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
@@ -55,6 +62,7 @@ fun MovieDetailScreen(
                 .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Card displaying the movie poster image in a square aspect ratio
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(
@@ -65,6 +73,7 @@ fun MovieDetailScreen(
                     .fillMaxWidth()
                     .aspectRatio(1f)
             ) {
+                // Load movie poster asynchronously using Coil with placeholder and error fallback
                 AsyncImage(
                     model = "${BaseURL.IMAGE_BASE_URL}${args.backdropPath}",
                     contentDescription = "Movie Poster",
@@ -77,6 +86,7 @@ fun MovieDetailScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // Display movie title with larger font
             Text(
                 text = args.title,
                 style = MaterialTheme.typography.titleMedium.copy(
@@ -89,6 +99,7 @@ fun MovieDetailScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // Display movie description / overview text
             Text(
                 text = args.overview,
                 style = MaterialTheme.typography.bodyMedium.copy(
@@ -103,6 +114,7 @@ fun MovieDetailScreen(
     }
 }
 
+// Preview of MovieDetailScreen using sample data
 @Preview
 @Composable
 fun MovieDetailScreenPreview() {
@@ -116,4 +128,3 @@ fun MovieDetailScreenPreview() {
         navigateBack = {}
     )
 }
-

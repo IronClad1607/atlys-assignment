@@ -1,5 +1,6 @@
 package com.ishaan.atlysassignment.data.network.call_adapter
 
+// Custom Call wrapper that converts Retrofit responses into NetworkResponse and centralizes success/error handling
 import com.google.gson.Gson
 import okhttp3.Request
 import okhttp3.ResponseBody
