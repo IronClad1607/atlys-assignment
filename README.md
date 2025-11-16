@@ -6,12 +6,6 @@ and modular architecture.
 
 ---
 
-## 🎥Working Demo
-
-See the app's core features in action with this brief demo:
-
-![Working Demo](./images/demo.mp4)
-
 ## 📸 Screenshots
 
 |                                      Movie List Screen                                      |                                      Movie Detail Screen                                      |
@@ -100,4 +94,14 @@ from [The Movie DB (TMDB)](https://www.themoviedb.org/documentation/api).
 
 ---
 
-## 🤖Usage of AI to build this project.
+## 🤖 AI in this Project
+
+In today's development landscape, leveraging AI gives developers an edge in building more scalable, performant, and robust applications:
+
+* **UI/UX Generation**: Generated the complete UI for the app, including both light and dark themes.
+* **Asset Creation**: Created the application's logo.
+* **Code Readability**: Added comments and documentation throughout the files to improve code readability and maintainability.
+* **Debugging**: Assisted in debugging a few crashes and unexpected behaviors encountered during development.
+* **Network Layer**: Helped create a generic network response call and adapter to streamline API integration.
+
+---
