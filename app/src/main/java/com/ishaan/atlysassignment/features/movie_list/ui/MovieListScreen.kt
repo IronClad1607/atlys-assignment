@@ -116,9 +116,11 @@ fun MovieListScreen(
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         state = listState,
-                        modifier = Modifier.padding(innerPadding),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        modifier = Modifier.padding(innerPadding)
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 30.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(
                             uiState.filteredMovies

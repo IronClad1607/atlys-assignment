@@ -17,7 +17,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.ishaan.atlysassignment.R
 import com.ishaan.atlysassignment.data.network.BaseURL
@@ -31,9 +30,8 @@ fun MovieItem(
     modifier: Modifier = Modifier
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.Start,
         modifier = modifier
-            .padding(16.dp)
             .background(MaterialTheme.colorScheme.background)
             .clickable {
                 onClick()
@@ -46,8 +44,8 @@ fun MovieItem(
             ),
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
             modifier = Modifier
-                .width(220.dp)
-                .aspectRatio(0.67f)
+                .width(172.dp)
+                .aspectRatio(1f)
         ) {
             val movieUrl = "${BaseURL.IMAGE_BASE_URL}$posterPath"
             AsyncImage(
@@ -60,16 +58,13 @@ fun MovieItem(
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         Text(
             text = title,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontSize = 16.sp
-            ),
+            style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Start,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.fillMaxWidth()
         )
     }
 }
