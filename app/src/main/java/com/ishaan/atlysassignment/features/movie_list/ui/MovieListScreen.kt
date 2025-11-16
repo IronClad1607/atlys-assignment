@@ -1,6 +1,7 @@
 package com.ishaan.atlysassignment.features.movie_list.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +10,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,18 +43,48 @@ fun MovieListScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Trending Movies"
+            AnimatedContent(
+                targetState = uiState.isSearchOpen,
+                label = "Search Bar Animation"
+            ) { isSearchActive ->
+                if (isSearchActive) {
+                    SearchBar(
+                        searchText = uiState.searchText,
+                        onSearchTextChange = {
+                            viewModel.onSearchUpdate(it)
+                        },
+                        onCloseClick = {
+                            viewModel.onSearchIconClicked(false)
+                        }
                     )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                    titleContentColor = MaterialTheme.colorScheme.onSecondary
-                ),
-                modifier = Modifier.shadow(elevation = 4.dp)
-            )
+                } else {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = "Trending Movies"
+                            )
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.secondary,
+                            titleContentColor = MaterialTheme.colorScheme.onSecondary,
+                            actionIconContentColor = MaterialTheme.colorScheme.onSecondary
+                        ),
+                        actions = {
+                            IconButton(
+                                onClick = {
+                                    viewModel.onSearchIconClicked(true)
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Search Movies",
+                                )
+                            }
+                        },
+                        modifier = Modifier.shadow(elevation = 4.dp)
+                    )
+                }
+            }
         },
         containerColor = MaterialTheme.colorScheme.background,
         modifier = modifier
@@ -59,28 +92,42 @@ fun MovieListScreen(
         if (uiState.isLoading) {
             LoadingIndicator()
         } else {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                state = listState,
-                modifier = Modifier.padding(innerPadding),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(
-                    uiState.movies
-                ) { movie ->
-                    MovieItem(
-                        posterPath = movie.posterPath,
-                        title = movie.title,
-                        onClick = {
-                            navigateToMovieDetail(
-                                MovieDetailsArgs(
-                                    title = movie.title,
-                                    overview = movie.overview,
-                                    backdropPath = movie.posterPath
+            if (uiState.errorMessage.isNullOrEmpty()) {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    state = listState,
+                    modifier = Modifier.padding(innerPadding),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(
+                        uiState.filteredMovies
+                    ) { movie ->
+                        MovieItem(
+                            posterPath = movie.posterPath,
+                            title = movie.title,
+                            onClick = {
+                                navigateToMovieDetail(
+                                    MovieDetailsArgs(
+                                        title = movie.title,
+                                        overview = movie.overview,
+                                        backdropPath = movie.posterPath
+                                    )
                                 )
-                            )
-                        }
+                            }
+                        )
+                    }
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = uiState.errorMessage
+                            ?: "Something went wrong, Try again after sometime."
                     )
                 }
             }

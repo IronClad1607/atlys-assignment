@@ -36,19 +36,51 @@ class MovieListViewModel @Inject constructor(
                 safeUpdateState { oldState ->
                     oldState.copy(
                         isLoading = false,
-                        allMoviesLoaded = true,
                         movies = movies,
+                        filteredMovies = movies
                     )
                 }
             } else {
                 safeUpdateState { oldState ->
                     oldState.copy(
                         isLoading = false,
-                        allMoviesLoaded = true,
                         errorMessage = "Something went wrong, Try again after sometime."
                     )
                 }
             }
+        }
+    }
+
+    fun onSearchIconClicked(open: Boolean) {
+        safeUpdateState { olState ->
+            olState.copy(
+                isSearchOpen = open
+            )
+        }
+    }
+
+    fun onSearchUpdate(searchText: String) {
+        safeUpdateState { oldState ->
+            oldState.copy(
+                isLoading = true,
+                searchText = searchText
+            )
+        }
+
+        val currentState = _uiState.value
+        val searchedMovies = if (searchText.isEmpty()) {
+            currentState.movies
+        } else {
+            currentState.movies.filter { movie ->
+                movie.title.contains(searchText, ignoreCase = true)
+            }
+        }
+
+        safeUpdateState {oldState ->
+            oldState.copy(
+                isLoading = false,
+                filteredMovies = searchedMovies,
+            )
         }
     }
 }
