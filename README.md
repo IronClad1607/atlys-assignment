@@ -8,9 +8,9 @@ and modular architecture.
 
 ## 📸 Screenshots
 
-|                                    Movie List Screen                                    |                                    Movie Detail Screen                                    |
-|:---------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:|
-| <img src="./images/movie_list_screen" alt="Movie List Screen" width="360" height="480"> | <img src="./images/movie_detail_screen" alt="Movie List Screen" width="360" height="480"> |
+|                                      Movie List Screen                                      |                                      Movie Detail Screen                                      |
+|:-------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
+| <img src="./images/movie_list_screen.png" alt="Movie List Screen" width="360" height="480"> | <img src="./images/movie_detail_screen.png" alt="Movie List Screen" width="360" height="480"> |
 
 ---
 
@@ -69,13 +69,13 @@ from [The Movie DB (TMDB)](https://www.themoviedb.org/documentation/api).
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/movie-db-app.git](https://github.com/your-username/movie-db-app.git)
-   cd movie-db-app
+   git clone https://github.com/IronClad1607/atlys-assignment
    ```
 
 2. **Get your API Key:**
     * Create an account on [TMDB](https://www.themoviedb.org/).
     * Go to your account settings, find the "API" section, and register for a v3 auth key.
+    * Or you can copy-paste the api key present inside [Auth File](auth_file.txt).
 
 3. **Add your API Key to `local.properties`:**
     * In the root directory of the project, create a file named `local.properties`.
@@ -84,7 +84,7 @@ from [The Movie DB (TMDB)](https://www.themoviedb.org/documentation/api).
 
    ```properties
    # TMDB API Key
-   API_KEY="YOUR_API_KEY_GOES_HERE"
+   apiKey="YOUR_API_KEY_GOES_HERE"
    ```
 
 4. **Build and Run:**
