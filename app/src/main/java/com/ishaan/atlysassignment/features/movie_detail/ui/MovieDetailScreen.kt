@@ -1,7 +1,9 @@
 package com.ishaan.atlysassignment.features.movie_detail.ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
@@ -48,7 +50,9 @@ fun MovieDetailScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Card(
@@ -77,6 +81,19 @@ fun MovieDetailScreen(
                 text = args.title,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontSize = 24.sp
+                ),
+                textAlign = TextAlign.Start,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = args.overview,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontSize = 16.sp,
+                    lineHeight = 24.sp
                 ),
                 textAlign = TextAlign.Start,
                 color = MaterialTheme.colorScheme.onBackground,

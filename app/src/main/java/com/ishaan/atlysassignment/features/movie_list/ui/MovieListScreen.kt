@@ -5,9 +5,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -17,8 +23,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ishaan.atlysassignment.features.movie_detail.data.MovieDetailsArgs
 import com.ishaan.atlysassignment.features.movie_list.viewmodel.MovieListViewModel
 import com.ishaan.atlysassignment.ui.theme.AtlysAssignmentTheme
-
-private const val PAGINATION_THRESHOLD = 6
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,57 +56,33 @@ fun MovieListScreen(
         containerColor = MaterialTheme.colorScheme.background,
         modifier = modifier
     ) { innerPadding ->
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            state = listState,
-            modifier = Modifier.padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(
-                uiState.movies
-            ) { movie ->
-                MovieItem(
-                    posterPath = movie.posterPath,
-                    title = movie.title,
-                    onClick = {
-                        navigateToMovieDetail(
-                            MovieDetailsArgs(
-                                title = movie.title,
-                                overview = movie.overview,
-                                backdropPath = movie.backdropPath
+        if (uiState.isLoading) {
+            LoadingIndicator()
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                state = listState,
+                modifier = Modifier.padding(innerPadding),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(
+                    uiState.movies
+                ) { movie ->
+                    MovieItem(
+                        posterPath = movie.posterPath,
+                        title = movie.title,
+                        onClick = {
+                            navigateToMovieDetail(
+                                MovieDetailsArgs(
+                                    title = movie.title,
+                                    overview = movie.overview,
+                                    backdropPath = movie.posterPath
+                                )
                             )
-                        )
-                    }
-                )
-            }
-
-            if (uiState.isLoading) {
-                item(
-                    span = {
-                        GridItemSpan(2)
-                    }
-                ) {
-                    LoadingIndicator()
+                        }
+                    )
                 }
-            }
-        }
-
-        val shouldLoadMore by remember {
-            derivedStateOf {
-                val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
-                    ?: return@derivedStateOf false // List is empty
-
-                val totalItems = listState.layoutInfo.totalItemsCount
-
-                // Check if the last visible item's index is at or past the threshold
-                lastVisibleItem.index >= totalItems - 1 - PAGINATION_THRESHOLD
-            }
-        }
-
-        LaunchedEffect(shouldLoadMore, uiState.isLoading) {
-            if (shouldLoadMore && !uiState.isLoading && !uiState.allMoviesLoaded) {
-                viewModel.getTrendingMovies()
             }
         }
     }

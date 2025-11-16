@@ -46,10 +46,9 @@ class MovieListViewModel @Inject constructor(
                     val movies = response.body.movies
                     safeUpdateState { oldState ->
                         if (movies.isNotEmpty()) {
-                            currentPage++
                             oldState.copy(
                                 isLoading = false,
-                                movies = oldState.movies + movies,
+                                movies = movies,
                             )
                         } else {
                             oldState.copy(
