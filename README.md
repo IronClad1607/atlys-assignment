@@ -10,7 +10,7 @@ and modular architecture.
 
 |                                      Movie List Screen                                      |                                      Movie Detail Screen                                      |
 |:-------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
-| <img src="./images/movie_list_screen.png" alt="Movie List Screen" width="360" height="480"> | <img src="./images/movie_detail_screen.png" alt="Movie List Screen" width="360" height="480"> |
+| <img src="./images/movie_list_screen.png" alt="Movie List Screen" width="360" height="600"> | <img src="./images/movie_detail_screen.png" alt="Movie List Screen" width="360" height="600"> |
 
 ---
 
