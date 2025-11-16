@@ -8,9 +8,9 @@ and modular architecture.
 
 ## 📸 Screenshots
 
-|                   Movie List Screen                    |                 Movie Detail Screen                  |
-|:------------------------------------------------------:|:----------------------------------------------------:|
-| ![Movie List Screen](./images/movie_detail_screen.png) | ![Movie List Screen](./images/movie_list_screen.png) |
+|                                    Movie List Screen                                    |                                    Movie Detail Screen                                    |
+|:---------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------:|
+| <img src="./images/movie_list_screen" alt="Movie List Screen" width="360" height="480"> | <img src="./images/movie_detail_screen" alt="Movie List Screen" width="360" height="480"> |
 
 ---
 
