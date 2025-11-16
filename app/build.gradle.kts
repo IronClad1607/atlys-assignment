@@ -74,6 +74,7 @@ dependencies {
 
     //Image Loading
     implementation(libs.coil)
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

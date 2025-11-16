@@ -5,7 +5,8 @@ import com.ishaan.atlysassignment.data.models.Movie
 data class MovieListUIState(
     val isLoading: Boolean = false,
     val movies: List<Movie> = emptyList(),
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val allMoviesLoaded: Boolean = false
 )
 
 sealed class MovieListUIEvents {

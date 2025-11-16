@@ -7,6 +7,7 @@ import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.ishaan.atlysassignment.data.network.APIService
+import com.ishaan.atlysassignment.data.network.BaseURL
 import com.ishaan.atlysassignment.data.network.call_adapter.NetworkResponseAdapterFactory
 import com.ishaan.atlysassignment.data.network.interceptors.APIKeyInterceptor
 import dagger.Module
@@ -23,8 +24,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
-    private const val BASE_URL = "https://api.themoviedb.org/3/"
 
     @Provides
     @Singleton
@@ -69,8 +68,8 @@ object NetworkModule {
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .addInterceptor(chuckerInterceptor)
             .addInterceptor(apiKeyInterceptor)
+            .addInterceptor(chuckerInterceptor)
             .build()
     }
 
@@ -78,7 +77,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BaseURL.API_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(NetworkResponseAdapterFactory(gson))

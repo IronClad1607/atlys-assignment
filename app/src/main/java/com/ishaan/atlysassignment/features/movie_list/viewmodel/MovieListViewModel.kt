@@ -1,6 +1,5 @@
 package com.ishaan.atlysassignment.features.movie_list.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.ishaan.atlysassignment.base.BaseViewModel
 import com.ishaan.atlysassignment.data.models.GetTrendingMoviesResponse
@@ -22,16 +21,43 @@ class MovieListViewModel @Inject constructor(
 
     var currentPage = 1
 
-    fun getTrendingMovies(pageToFetch: Int) {
+    fun getTrendingMovies() {
         viewModelScope.launch {
-            when (val response = repository.getAllTrendingMovies(pageToFetch)) {
+            val currentState = _uiState.value
+            if (currentState.isLoading) {
+                return@launch
+            }
+
+            safeUpdateState { oldState ->
+                oldState.copy(isLoading = true)
+            }
+
+            when (val response = repository.getAllTrendingMovies(currentPage)) {
                 is NetworkResponse.Error -> {
-                    Log.e("PUI", "error: ${response.body.errorMessage}")
+                    safeUpdateState { oldState ->
+                        oldState.copy(
+                            isLoading = false,
+                            errorMessage = response.body.errorMessage
+                        )
+                    }
                 }
 
                 is NetworkResponse.Success<GetTrendingMoviesResponse> -> {
                     val movies = response.body.movies
-                    Log.d("PUI", "movies: ${movies.size}")
+                    safeUpdateState { oldState ->
+                        if (movies.isNotEmpty()) {
+                            currentPage++
+                            oldState.copy(
+                                isLoading = false,
+                                movies = oldState.movies + movies,
+                            )
+                        } else {
+                            oldState.copy(
+                                isLoading = false,
+                                allMoviesLoaded = true
+                            )
+                        }
+                    }
                 }
             }
         }
