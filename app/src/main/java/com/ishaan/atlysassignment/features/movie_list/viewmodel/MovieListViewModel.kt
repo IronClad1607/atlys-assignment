@@ -6,9 +6,11 @@ import com.ishaan.atlysassignment.data.repository.MovieRepository
 import com.ishaan.atlysassignment.features.movie_list.data.MovieListUIEvents
 import com.ishaan.atlysassignment.features.movie_list.data.MovieListUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class)
 @HiltViewModel
 class MovieListViewModel @Inject constructor(
     private val repository: MovieRepository
@@ -27,7 +29,7 @@ class MovieListViewModel @Inject constructor(
             }
 
             safeUpdateState { oldState ->
-                oldState.copy(isLoading = true)
+                oldState.copy(isLoading = true, errorMessage = null)
             }
 
             val movies = repository.getAllTrendingMovies(currentPage)
@@ -37,7 +39,8 @@ class MovieListViewModel @Inject constructor(
                     oldState.copy(
                         isLoading = false,
                         movies = movies,
-                        filteredMovies = movies
+                        filteredMovies = movies,
+                        errorMessage = null
                     )
                 }
             } else {
@@ -53,9 +56,17 @@ class MovieListViewModel @Inject constructor(
 
     fun onSearchIconClicked(open: Boolean) {
         safeUpdateState { olState ->
-            olState.copy(
-                isSearchOpen = open
-            )
+            if (!open) {
+                olState.copy(
+                    isSearchOpen = false,
+                    searchText = "",
+                    filteredMovies = olState.movies
+                )
+            } else {
+                olState.copy(
+                    isSearchOpen = true
+                )
+            }
         }
     }
 
