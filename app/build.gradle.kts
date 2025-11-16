@@ -53,7 +53,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation("androidx.compose.material:material-icons-extended:1.7.8")
+    implementation(libs.androidx.compose.icon.extended)
 
     //Data module
     implementation(project(":data"))
@@ -61,7 +61,7 @@ dependencies {
     //Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.hilt.android.compose)
 
     //Viewmodel and lifecycle
     implementation(libs.viewmodel.ktx)
@@ -74,7 +74,7 @@ dependencies {
 
     //Image Loading
     implementation(libs.coil)
-    implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
+    implementation(libs.coil.network)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

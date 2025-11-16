@@ -64,6 +64,11 @@ dependencies {
     debugImplementation(libs.chucker.main)
     releaseImplementation(libs.chucker.no.op)
 
+    //Room Deps
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
+
     //Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
