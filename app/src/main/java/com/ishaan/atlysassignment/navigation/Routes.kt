@@ -1,20 +1,15 @@
 package com.ishaan.atlysassignment.navigation
 
-/**
- * A sealed interface representing a screen route.
- * Each screen must implement this interface and define its unique route.
- */
-sealed interface Routes {
-    val route: String
-}
+import com.ishaan.atlysassignment.features.movie_detail.data.MovieDetailsArgs
+import kotlinx.serialization.Serializable
 
-data object SplashScreen : Routes {
-    override val route: String
-        get() = "splash_screen"
-}
+@Serializable
+object SplashScreenRoute
 
-data object MovieListScreen : Routes {
-    override val route: String
-        get() = "movie_list_screen"
+@Serializable
+object MovieListScreenRoute
 
-}
+@Serializable
+data class MovieDetailScreenRoute(
+    val movieDetailsArgs: MovieDetailsArgs
+)

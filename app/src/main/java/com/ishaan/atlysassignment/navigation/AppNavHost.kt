@@ -19,7 +19,7 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = SplashScreen.route,
+        startDestination = SplashScreenRoute,
         builder = builder,
         // Define transition when navigating to a new screen
         enterTransition = {

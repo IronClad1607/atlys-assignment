@@ -10,9 +10,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ishaan.atlysassignment.features.movie_detail.data.MovieDetailsArgs
 import com.ishaan.atlysassignment.features.movie_list.viewmodel.MovieListViewModel
 import com.ishaan.atlysassignment.ui.theme.AtlysAssignmentTheme
 
@@ -21,6 +23,7 @@ private const val PAGINATION_THRESHOLD = 6
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieListScreen(
+    navigateToMovieDetail: (movie: MovieDetailsArgs) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel = hiltViewModel<MovieListViewModel>()
@@ -38,7 +41,12 @@ fun MovieListScreen(
                     Text(
                         text = "Trending Movies"
                     )
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    titleContentColor = MaterialTheme.colorScheme.onSecondary
+                ),
+                modifier = Modifier.shadow(elevation = 4.dp)
             )
         },
         containerColor = MaterialTheme.colorScheme.background,
@@ -58,7 +66,13 @@ fun MovieListScreen(
                     posterPath = movie.posterPath,
                     title = movie.title,
                     onClick = {
-
+                        navigateToMovieDetail(
+                            MovieDetailsArgs(
+                                title = movie.title,
+                                overview = movie.overview,
+                                backdropPath = movie.backdropPath
+                            )
+                        )
                     }
                 )
             }
@@ -110,7 +124,9 @@ fun LoadingIndicator() {
 @Composable
 private fun MovieListScreenPreview() {
     AtlysAssignmentTheme {
-        MovieListScreen()
+        MovieListScreen(
+            navigateToMovieDetail = {}
+        )
     }
 }
 
@@ -118,6 +134,8 @@ private fun MovieListScreenPreview() {
 @Composable
 private fun MovieListScreenDarkPreview() {
     AtlysAssignmentTheme {
-        MovieListScreen()
+        MovieListScreen(
+            navigateToMovieDetail = {}
+        )
     }
 }
